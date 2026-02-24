@@ -130,62 +130,76 @@ console.log(`O estoque tem ${quantidadeEstoque} unidades, ou seja o estoque esta
 
 console.log('\n---------------------\nExercicio 5:');
 
-let valorCompra = 10; // valor da compra antes do desconto
-let percentualValorFinal; // valor percentual total do valor descontado
-let desconto; // percentual do desconto
+let valorCompra = 300; // valor da compra antes do desconto
+let descontoFinal; // percentual do desconto
 let valorFinal; // valor final descontado
 let valorParaDesconto; // valor que faltaria para o proximo patamar de desconto
-let para20DeDesconto = 300, para10DeDesconto = 100;
+const descontoNivel2 = 300, descontoNivel1 = 100; // Valores para conseguir desconto
+const percentualNivel2 = '20%', percentualNivel1 = '10%'; // percentuais ofertados como desconto em cada nivel
 
 
 //função que calcula e retorna o valor descontado
 function aplicarDesconto(para20DeDesconto,para10DeDesconto,valor){
+    let percentualValorFinal; // valor percentual total do valor descontado
+
     if (valor > para20DeDesconto){
         percentualValorFinal = 0.8;// 80% do valor total
         
     }else if (valor > para10DeDesconto){
         percentualValorFinal = 0.9;// 90% do valor total
 
-    } else 
-        percentualValorFinal = 1; // 100% do valor total
+    } else {
+        percntualValorFinal = 1; // 100% do valor total
+    }
         
-        return valor * percentualValorFinal // retornando valor descontado
+        return (valor*percentualValorFinal); // retornando valor descontado
     }
     
 //função que calcula e retorna o percentual do desconto
-function checarDescontoDisponivel(para20DeDesconto,para10DeDesconto,valor){
-    if (valor > para20DeDesconto){
-        desconto = '20%';
+function checarDescontoDisponivel(descontoNivel2,descontoNivel1,valor){
+    let calculoDesconto;
+    if (valor > descontoNivel2){
+        calculoDesconto = percentualNivel2;
         
-    }else if (valor > para10DeDesconto){
-        desconto = '10%';
+    }else if (valor > descontoNivel1){
+        calculoDesconto = percentualNivel1;
 
-    } else 
-        desconto = '0%';
+    } else {
+        calculoDesconto = '0%';
+    }
         
-    return desconto
+    return calculoDesconto;
     }
 
 //função que retorna o valor que faltaria para um desconto maior
-function quantoFaltaParaDesconto(para20DeDesconto,para10DeDesconto,valor){
-     if (valor > para20DeDesconto){
-        valorParaDesconto = 'Você atingiu o desconto maximo';
+function quantoFaltaParaDesconto(descontoNivel2,descontoNivel1,valor){
+    let descontoAtual;
+    let percentualAtual;
+    let textoParaInformarDesconto;
+    if (valor > descontoNivel2){
+       return textoParaInformarDesconto = 'Você atingiu o desconto maximo';
         
-    }else if (valor >= para10DeDesconto){
-        valorParaDesconto = 'Faltam '+(300 - valor +0.1)+'R$ para ter 20% de desconto';
-    } else 
-        valorParaDesconto = 'Faltam '+(100 - valor+0.1)+'R$ para ter 10% de desconto';
+    }else if (valor >= descontoNivel1){
+        descontoAtual = descontoNivel2;
+        percentualAtual = percentualNivel2;
         
-    return valorParaDesconto
+    } else{
+        descontoAtual = descontoNivel1;
+        percentualAtual = percentualNivel1;
+    }
+    
+    textoParaInformarDesconto = 'Faltam '+(descontoAtual - valor+0.1)+'R$ para ter '+percentualAtual+' de desconto';
+
+    return textoParaInformarDesconto;
 }
 
 //definindo valores descontados, percentuais de desconto e valor que faltaria para desconto
-valorFinal = aplicarDesconto(para20DeDesconto,para10DeDesconto,valorCompra); // valor final descontado
-desconto = checarDescontoDisponivel(para20DeDesconto,para10DeDesconto,valorCompra); // valor percentual de deconto em string
-valorParaDesconto = quantoFaltaParaDesconto(para20DeDesconto,para10DeDesconto,valorCompra); // valor que faltaria para ter mais desconto e quanto seria
+valorParaDesconto = quantoFaltaParaDesconto(descontoNivel2,descontoNivel1,valorCompra); // valor que faltaria para ter mais desconto e quanto seria
+descontoFinal = checarDescontoDisponivel(descontoNivel2,descontoNivel1,valorCompra); // valor percentual de deconto em string
+valorFinal = aplicarDesconto(descontoNivel2,descontoNivel1,valorCompra); // valor final descontado
 
 //printando resultaod final
-console.log(`O valor ficou de ${valorCompra}R$ por ${valorFinal}R$ com ${desconto} de desconto `);
+console.log(`O valor ficou de ${valorCompra}R$ por ${valorFinal}R$ com ${descontoFinal} de desconto `);
 console.log(valorParaDesconto);
 
 
