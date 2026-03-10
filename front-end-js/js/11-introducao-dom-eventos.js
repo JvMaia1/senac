@@ -54,5 +54,135 @@ bMostrarEsconder.addEventListener('click', function(){
 
 });
 
+//Exemplo 3
+//Fazendo com que a imagem mude de acordo com o botão
+
+const imgFoto = document.querySelector("#foto");
+
+const botoesDeFoto = document.querySelectorAll("[data-imagem]");
+
+for (const botao of botoesDeFoto){
+    botao.addEventListener("click", function(){
+        const imagem = botao.getAttribute("data-imagem");
+        const textoAlt = botao.dataset.alt;
+
+        imgFoto.src = imagem;
+        imgFoto.setAttribute('alt', textoAlt);
+})};
+
+//exemplo 4
+//fazendo com que o contador de caracteres conte
+
+const caixaDeTexto = document.querySelector('#mensagem');
+const spanContador = document.querySelector('#contador');
+const contadorRegressivo = document.querySelector("#regressivo");
+
+caixaDeTexto.addEventListener('input', function(){
+    let totalCaracteres = caixaDeTexto.value.length;
+    let quantidadeMaxima = caixaDeTexto.getAttribute("maxlength");
+
+    spanContador.textContent = totalCaracteres;
+    contadorRegressivo.textContent = (quantidadeMaxima - totalCaracteres);
+
+    if(totalCaracteres >=100){
+        spanContador.classList.add('excesso');
+        caixaDeTexto.style.border = "solid 4px red";
+        caixaDeTexto.style.background = "pink";
+
+    } else {
+        spanContador.classList.remove('excesso')
+        caixaDeTexto.style.border = "";
+        caixaDeTexto.style.background = "";
+
+    };
+});
+
+//exemplo 5
+//detectando a tecla pressionada
+
+const pTecla = document.querySelector('#tecla b');
+
+document.addEventListener('keyup', function(event){
+    const teclaPressionada = event.key;
+    pTecla.textContent = teclaPressionada;
+
+    if(teclaPressionada === 'a'){
+        pTecla.style.color = 'purple';
+    } else {
+        pTecla.style.color = '';
+    };
+});
+
+//exemplo 6
+//fazendo a lista de taferas se tornar funcional
+//selecionando a div para melhorar o desempenho
+
+const divRelacaoTarefas = document.querySelector('#relacao-tarefas');
+const inputTarefa = divRelacaoTarefas.querySelector('#tarefa');
+const spanTotalTarefas = divRelacaoTarefas.querySelector('#total');
+const botaoAdicionar = divRelacaoTarefas.querySelector('#adicionar');
+const listaTarefas = divRelacaoTarefas.querySelector('#lista');
+
+botaoAdicionar.addEventListener('click', function(){
+    //Capturar valor digitado
+    let textoTarefa = inputTarefa.value;
+
+    if (textoTarefa != ''){
+        let item = document.createElement('li');
+
+        item.textContent = textoTarefa;
+        listaTarefas.appendChild(item);
+
+        spanTotalTarefas.textContent = listaTarefas.children.length;
+
+        inputTarefa.value ='';
+        inputTarefa.focus();
+
+        item.tabIndex = 0;
+
+        item.addEventListener('keypress', function(event){
+        if (event.key === 'Enter' || event.key === ' ' || event.keycode === 32){
+            item.classList.toggle('feito');
+            };
+        });
+
+        item.addEventListener('click', function(){
+            item.classList.toggle('feito');
+        });
+
+    } else return;
+    
+});
+
+//mapeamento do evento: detecta o enter e simula um click no botao adicionar
+
+inputTarefa.addEventListener('keypress', function(event){
+    if (event.key == 'Enter'){
+        botaoAdicionar.click();
+    };
+});
+
+//exemplo 9 
+//fazendo a senha ser exibida
+
+function esconderSenha(){
+    inputSenha.type = 'password';
+    botaoMostrar.textContent= '👁 Mostrar senha';
+};
+
+const inputSenha = document.querySelector('#senha');
+const botaoMostrar = document.querySelector('#mostrar-senha');
+
+botaoMostrar.addEventListener('pointerdown', function(){
+    inputSenha.type = 'text';
+    botaoMostrar.textContent = 'Solte para esconder';
+});
 
 
+botaoMostrar.addEventListener('pointerup', function(){
+    esconderSenha();
+});
+
+botaoMostrar.addEventListener('pointerleave', function(){
+    esconderSenha();
+});
