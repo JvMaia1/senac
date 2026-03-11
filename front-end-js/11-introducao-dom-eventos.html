@@ -59,8 +59,9 @@
         }
 
         progress.concluido {
-            background: green;
+            accent-color: green;
         }
+
     </style>
 </head>
 
@@ -123,6 +124,7 @@
 
         <hr>
 
+    <div id="progresso">
         <h2>7 - Barra de progresso</h2>
         <progress id="barra" value="0" max="100"></progress>
         
@@ -130,18 +132,29 @@
 
         <button id="carregar">Carregar</button>
         <button id="limpar">Limpar</button>
-
+    </div>
+    
         <hr>
+
 
         <h2>8 - Envio de formulário</h2>
 
         <form id="form-exemplo">
             <label for="campo-nome">Nome:</label>
-            <input type="text" id="campo-nome">
+            <input type="text" id="campo-nome" required>
+
+            <br>
+
+            <label for="campo-idade">Idade:</label>
+            <input type="number" id="campo-idade" required min ='0' max='120'>
+
+            <br>
+
             <button>Enviar</button>
         </form>
 
         <p id="saida"></p>
+
 
         <hr>
 

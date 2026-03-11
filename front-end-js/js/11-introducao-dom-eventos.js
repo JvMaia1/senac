@@ -162,6 +162,52 @@ inputTarefa.addEventListener('keypress', function(event){
     };
 });
 
+//exemlo 7
+//tornando a barra de progresso funcional
+
+const secaoProgresso = document.querySelector('#progresso');
+const barraProgresso = secaoProgresso.querySelector('#barra');
+const bCarregar = secaoProgresso.querySelector('#carregar');
+const bLimpar = secaoProgresso.querySelector('#limpar');
+
+bCarregar.addEventListener('click', function(){
+    barraProgresso.value +=10;
+    
+    if (barraProgresso.value >= 100){
+        barraProgresso.classList.add('concluido');
+    };
+});
+
+
+bLimpar.addEventListener('click', function(){
+    barraProgresso.value =0;
+    barraProgresso.classList.remove('concluido');
+});
+
+//exemplo 8
+//criando formulario
+
+const campoFormulario = document.querySelector('#form-exemplo');
+const inputNome = campoFormulario.querySelector('#campo-nome');
+const inputIdade = campoFormulario.querySelector('#campo-idade');
+const outputFormulario = document.querySelector('#saida');
+//const bEnviarFormulario = campoFormulario.querySelector('')
+
+campoFormulario.addEventListener('submit', function(event){
+    event.preventDefault();
+    const nomeBruto = (inputNome.value).trim().toLowerCase();// converte em minusculo e remove os espaços no começo e fim para formataçao
+    const nomeFormatado = nomeBruto
+        .split(' ')
+        .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1))
+        .join(' ');
+    const idade = Number(inputIdade.value); //converte para numero a idade automaticamente
+
+    outputFormulario.textContent = (`Olá, ${nomeFormatado}, você tem ${idade} anos`)
+
+    campoFormulario.reset()
+    inputNome.focus()
+});
+
 //exemplo 9 
 //fazendo a senha ser exibida
 
